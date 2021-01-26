@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sewaLapak/models/space.dart';
 import 'package:sewaLapak/models/tips.dart';
+import 'package:sewaLapak/providers/space_provider.dart';
 import 'package:sewaLapak/theme.dart';
 import 'package:sewaLapak/widget/bottom_navbar.dart';
 import 'package:sewaLapak/widget/city_card.dart';
@@ -9,9 +11,11 @@ import 'package:sewaLapak/widget/guide_card.dart';
 import 'package:sewaLapak/widget/space_card.dart';
 
 class HomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
+    var spaceProvider = Provider.of<SpaceProvider>(context);
+    spaceProvider.getRecomendedSpaces();
+
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -26,15 +30,15 @@ class HomePage extends StatelessWidget {
               child: Text(
                 'Explore Now',
                 style: blackTextStyle.copyWith(fontSize: 24),
-                ),
+              ),
             ),
-            SizedBox( height: 3),
+            SizedBox(height: 3),
             Padding(
               padding: EdgeInsets.only(left: edge),
               child: Text(
                 'mencari tempat usaha terbaik anda',
                 style: greyTextStyle.copyWith(fontSize: 16),
-                ),
+              ),
             ),
             SizedBox(height: 30),
 
@@ -44,7 +48,7 @@ class HomePage extends StatelessWidget {
               child: Text(
                 'Popular Cities',
                 style: blackTextStyle.copyWith(fontSize: 16),
-                ),
+              ),
             ),
             SizedBox(height: 16),
             //container list city
@@ -56,84 +60,68 @@ class HomePage extends StatelessWidget {
                   SizedBox(
                     width: 24,
                   ),
-                  CityCard(
-                    City(
-                      id: 1, 
-                      name: 'Jakarta', 
+                  CityCard(City(
+                      id: 1,
+                      name: 'Jakarta',
                       imageUrl: 'assets/city1.png',
-                      isPopular: true)
-                  ),
+                      isPopular: true)),
                   SizedBox(
                     width: 24,
                   ),
                   CityCard(
-                    City(
-                      id: 2, 
-                      name: 'Bali', 
-                      imageUrl: 'assets/city2.png')
-                  ),
+                      City(id: 2, name: 'Bali', imageUrl: 'assets/city2.png')),
                   SizedBox(
                     width: 24,
                   ),
-                  CityCard(
-                    City(
-                      id: 3, 
-                      name: 'Surabaya', 
-                      imageUrl: 'assets/city3.png')
-                  ),
+                  CityCard(City(
+                      id: 3, name: 'Surabaya', imageUrl: 'assets/city3.png')),
                 ],
               ),
             ),
             SizedBox(height: 30),
-        
+
             //RECOMENDED SPACE
             Padding(
               padding: EdgeInsets.only(left: edge),
               child: Text(
                 'Recomended Choice',
                 style: blackTextStyle.copyWith(fontSize: 16),
-                ),
+              ),
             ),
             SizedBox(height: 18),
             Padding(
               padding: EdgeInsets.only(left: edge),
               child: Column(
                 children: [
-                  SpaceCard(
-                    Space(
-                      id: 1,
-                      name: 'Ruko Margaretta',
-                      price: 50,
-                      rating: 4,
-                      city: 'Bandung',
-                      country: 'Jawa Barat',
-                      imageUrl: 'assets/space1.png',
-                    )
-                  ),
+                  SpaceCard(Space(
+                    id: 1,
+                    name: 'Ruko Margaretta',
+                    price: 50,
+                    rating: 4,
+                    city: 'Bandung',
+                    country: 'Jawa Barat',
+                    imageUrl: 'assets/space1.png',
+                  )),
                   SizedBox(height: 10),
-                  SpaceCard(
-                    Space(
-                      id: 2,
-                      name: 'Ruko 24 Bogor',
-                      price: 100,
-                      rating: 4,
-                      city: 'Bogor',
-                      country: 'Jawa Barat',
-                      imageUrl: 'assets/space2.png',
-                    )
-                  ),
+                  SpaceCard(Space(
+                    id: 2,
+                    name: 'Ruko 24 Bogor',
+                    price: 100,
+                    rating: 4,
+                    city: 'Bogor',
+                    country: 'Jawa Barat',
+                    imageUrl: 'assets/space2.png',
+                  )),
                   SizedBox(height: 10),
-                  SpaceCard(
-                    Space(
-                      id: 3,
-                      name: 'Ruko House Dramaga',
-                      price: 150,
-                      rating: 4,
-                      city: 'Bandung',
-                      country: 'Jawa Barat',
-                      imageUrl: 'assets/space3.png',
-                    )
-                  ),
+                  SpaceCard(Space(
+                    id: 3,
+                    name: 'Ruko House Dramaga',
+                    price: 150,
+                    rating: 4,
+                    city: 'Bandung',
+                    country: 'Jawa Barat',
+                    imageUrl: 'assets/space3.png',
+                  )),
                 ],
               ),
             ),
@@ -145,21 +133,18 @@ class HomePage extends StatelessWidget {
               child: Text(
                 'Guide and Tips',
                 style: blackTextStyle.copyWith(fontSize: 16),
-                ),
+              ),
             ),
             SizedBox(height: 18),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: edge),
               child: Column(
                 children: [
-                  TipsCard(
-                    Tips(
+                  TipsCard(Tips(
                       id: 1,
                       title: 'Memilih tempat terbaik',
                       updatedAt: '21 Januari 2021',
-                      imageUrl: 'assets/tips1.png'
-                    )
-                  ),
+                      imageUrl: 'assets/tips1.png')),
                   SizedBox(height: 10),
                   TipsCard(
                     Tips(
@@ -173,42 +158,40 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 50 + edge),
-            
           ],
         ),
       ),
-       floatingActionButton:  Container(
-                height: 65,
-                width: MediaQuery.of(context).size.width - (2 * edge),
-                margin: EdgeInsets.symmetric(horizontal: edge),
-                decoration: BoxDecoration(
-                  color: Color(0xFFE5E5E5),
-                  borderRadius: BorderRadius.circular(23),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    BottomNavbarItem(
-                      imageUrl: 'assets/icon_home_active.png',
-                      isActive: true,
-                    ),
-                    BottomNavbarItem(
-                      imageUrl: 'assets/icon_messages.png',
-                      isActive: false,
-                    ),
-                    BottomNavbarItem(
-                      imageUrl: 'assets/icon_news.png',
-                      isActive: false,
-                    ),
-                    BottomNavbarItem(
-                      imageUrl: 'assets/icon_favorite.png',
-                      isActive: false,
-                    ),
-
-                ],
-                ),
-              ),
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        height: 65,
+        width: MediaQuery.of(context).size.width - (2 * edge),
+        margin: EdgeInsets.symmetric(horizontal: edge),
+        decoration: BoxDecoration(
+          color: Color(0xFFE5E5E5),
+          borderRadius: BorderRadius.circular(23),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            BottomNavbarItem(
+              imageUrl: 'assets/icon_home_active.png',
+              isActive: true,
+            ),
+            BottomNavbarItem(
+              imageUrl: 'assets/icon_messages.png',
+              isActive: false,
+            ),
+            BottomNavbarItem(
+              imageUrl: 'assets/icon_news.png',
+              isActive: false,
+            ),
+            BottomNavbarItem(
+              imageUrl: 'assets/icon_favorite.png',
+              isActive: false,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
