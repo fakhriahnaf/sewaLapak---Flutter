@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
           children: [
             SizedBox(
               height: edge,
-            )
+            ),
             //HEADER ATAS
             Padding(
               padding: EdgeInsets.only(left: edge),
